@@ -25,11 +25,42 @@ public class Job {
     public Job(String name, Employer employer, Location location, PositionType positionType, CoreCompetency coreCompetency) {
         this();
         this.name = name;
+        this.employer = employer;
+        this.location = location;
+        this.positionType = positionType;
+        this.coreCompetency = coreCompetency;
     }
 
     @Override
     public String toString() {
-        String jobReport = String.format("\n","ID: %n", "\n" , "Name:", "\n", "Employer:", "\n", "Location:", "\n", "Position Type:", getPositionType(), "\n", "Core Competency:", getCoreCompetency(), "\n");
+
+        if (name.equals("")) {
+            System.out.println("Data not available");
+        }
+
+        if (employer.getValue() == null || employer.getValue().equals("")) {
+            System.out.println("Data not available");
+        }
+
+
+        if (location.getValue() == null || location.getValue().equals("")) {
+            location.setValue("Data not available");
+        }
+
+        if (positionType.getValue() == null || positionType.getValue().equals("")) {
+            System.out.println("Data not available");
+        }
+
+        if (coreCompetency == null || coreCompetency.getValue().equals("")) {
+            System.out.println("Data not available");
+        }
+
+        String jobReport = String.format("\nID: %d\n" +
+                "Name: %s\n" +
+                "Employer: %s\n" +
+                "Location: %s\n" +
+                "Position Type: %s\n" +
+                "Core Competency: %s\n", id, name, employer, location, positionType, coreCompetency);
         return jobReport;
     }
 
@@ -38,15 +69,16 @@ public class Job {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Job job = (Job) o;
-        return id == job.id && Objects.equals(name, job.name) && Objects.equals(employer, job.employer) && Objects.equals(location, job.location) && Objects.equals(positionType, job.positionType) && Objects.equals(coreCompetency, job.coreCompetency);
+        return id == job.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, employer, location, positionType, coreCompetency);
+        return Objects.hash(id);
     }
 
-    // TODO: Add custom equals and hashCode methods. Consider two Job objects "equal" when their id fields
+
+// TODO: Add custom equals and hashCode methods. Consider two Job objects "equal" when their id fields
     //  match.
 
     public int getId() {
